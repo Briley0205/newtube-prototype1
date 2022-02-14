@@ -14,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/Briley0205/newtube-prototype1/issues"
   },
-  "homepage": "https://github.com/Briley0205/newtube-prototype1#readme"
+  "homepage": "https://github.com/Briley0205/newtube-prototype1#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
 }
