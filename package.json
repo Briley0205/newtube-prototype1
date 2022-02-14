@@ -1,0 +1,21 @@
+{
+  "name": "newtube-prototype1",
+  "version": "1.0.0",
+  "description": "The best way to watch videos",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Briley0205/newtube-prototype1.git"
+  },
+  "scripts": {
+    "win": "node index.js"
+  },
+  "author": "Briley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Briley0205/newtube-prototype1/issues"
+  },
+  "homepage": "https://github.com/Briley0205/newtube-prototype1#readme"
+}
