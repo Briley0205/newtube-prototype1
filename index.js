@@ -1,1 +1,3 @@
-console.log("Hello my first newtube project!");
+const express = require("express");
+
+const app = express();

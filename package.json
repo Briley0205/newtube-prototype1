@@ -17,5 +17,9 @@
   "homepage": "https://github.com/Briley0205/newtube-prototype1#readme",
   "dependencies": {
     "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.2",
+    "@babel/preset-env": "^7.16.11"
   }
 }
