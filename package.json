@@ -7,7 +7,7 @@
     "url": "git+https://github.com/Briley0205/newtube-prototype1.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/index.js"
+    "dev": "nodemon --exec babel-node src/newserver.js"
   },
   "author": "Briley",
   "license": "MIT",
