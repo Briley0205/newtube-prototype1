@@ -5,7 +5,7 @@ const PORT = 4000;
 const app = express();
 
 const handleHome = (req, res) => {
-    return res.send("I'm still watching you.");
+    return res.send("<h1>I'm still watching you.</h1>");
 }
 
 const handleLogin = (req, res) => {
