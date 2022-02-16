@@ -1,15 +1,12 @@
 import express from "express";
+import morgan from "morgan";
 
 const PORT = 4000;
 
 const app = express();
+const logger = morgan("dev");
 
-const logger = (req, res, next) => {
-    console.log(`${req.method} ${req.url}`);
-    next();
-}
-
-const handleHome = (req, res, next) => {
+const handleHome = (req, res) => {
     return res.send("<h1>I'm still watching you.</h1>");
 }
 
