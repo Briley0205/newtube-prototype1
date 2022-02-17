@@ -5,15 +5,15 @@
 /login
 /search
 
-/watch-video
-/edit-video
-/delete-video
-
-/users/edit
+/users/:id -> See User
+/users/logout
+/users/edit -> Edit my profile
 /users/delete
 
-/videos/watch
-/videos/edit
-/videos/delete
+/videos/:id(id of video) -> Watch Video
+/videos/:id/edit
+/videos/:id/delete
+/videos/upload
+
 /videos/comments
 /videos/comments/delete
