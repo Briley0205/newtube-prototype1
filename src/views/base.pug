@@ -4,6 +4,18 @@ html(lang="ko")
         title #{pageTitle} | Newtube
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
     body
+        header 
+            if fakeUser.loggedIn
+                small Nice to meet you, #{fakeUser.username}
+            nav 
+                ul 
+                    if fakeUser.loggedIn
+                        li 
+                            a(href="/users/logout") Log out
+                    else 
+                        li 
+                            a(href="/login") Login
+            h1=pageTitle
         main
         block content
-    include partials/footer.pug
+    include partials/footer
