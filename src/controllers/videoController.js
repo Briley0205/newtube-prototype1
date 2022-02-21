@@ -1,32 +1,37 @@
 const fakeUser = {
     username:"Boyeon",
-    loggedIn: false,
+    loggedIn: true,
 }
-
-export const trending = (req, res) => {
-    const videos = [
-        {title: "I",
-         rating: 4.8,
-         comments: 378,
-         createdAt: "2 minutes ago",
-         views: 78,
-         id: 1,},
-         {title: "hate",
-         rating: 4.8,
-         comments: 378,
-         createdAt: "2 minutes ago",
-         views: 78,
-         id: 1,},
-         {title: "medicines",
-         rating: 4.8,
-         comments: 378,
-         createdAt: "2 minutes ago",
-         views: 78,
-         id: 1,},
-    ];
-    return res.render("home", {pageTitle: "Home", fakeUser, videos})};
-export const Watch = (req, res) => res.render("watch", {pageTitle: "watch"});
-export const Edit = (req, res) => res.render("edit", {pageTitle: "Edit videos"});
+let videos = [
+    {title: "I",
+     rating: 4.8,
+     comments: 378,
+     createdAt: "2 minutes ago",
+     views: 8,
+     id: 1,},
+     {title: "hate",
+     rating: 4.8,
+     comments: 378,
+     createdAt: "2 minutes ago",
+     views: 78,
+     id: 1,},
+     {title: "medicines",
+     rating: 4.8,
+     comments: 378,
+     createdAt: "2 minutes ago",
+     views: 78,
+     id: 1,},
+]
+export const trending = (req, res) => res.render("home", {pageTitle: "Home", fakeUser, videos});
+export const Watch = (req, res) => {
+    const { id } = req.params;
+    const video = videos[id - 1];
+    return res.render("watch", {pageTitle: `Watching ${video.title}`, fakeUser, video})
+};
+export const Edit = (req, res) => {
+    const { id } = req.params;
+    const video = videos[id - 1];
+    return res.render("edit", {pageTitle: `editting ${video.title}`, fakeUser, video})};
 export const search = (req, res) => res.send("You can search your videos");
 export const upload = (req, res) => res.send("You can upload your videos here");
 export const deleteVideo = (req, res) => res.send("You may delete your videos");
