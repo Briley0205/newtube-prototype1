@@ -28,10 +28,17 @@ export const Watch = (req, res) => {
     const video = videos[id - 1];
     return res.render("watch", {pageTitle: `Watching ${video.title}`, fakeUser, video})
 };
-export const Edit = (req, res) => {
+export const getEdit = (req, res) => {
     const { id } = req.params;
     const video = videos[id - 1];
-    return res.render("edit", {pageTitle: `editting ${video.title}`, fakeUser, video})};
+    return res.render("edit", {pageTitle: `editting ${video.title}`, fakeUser, video})
+};
+export const postEdit = (req, res) => {
+    const { id } = req.params;
+    const { title } = req.body;
+    videos[id - 1].title = title;
+    return res.redirect(`/videos/${id}`);
+}
 export const search = (req, res) => res.send("You can search your videos");
 export const upload = (req, res) => res.send("You can upload your videos here");
 export const deleteVideo = (req, res) => res.send("You may delete your videos");
