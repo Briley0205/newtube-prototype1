@@ -14,13 +14,13 @@ let videos = [
      comments: 378,
      createdAt: "2 minutes ago",
      views: 78,
-     id: 1,},
+     id: 2,},
      {title: "medicines",
      rating: 4.8,
      comments: 378,
      createdAt: "2 minutes ago",
      views: 78,
-     id: 1,},
+     id: 3,},
 ]
 export const trending = (req, res) => res.render("home", {pageTitle: "Home", fakeUser, videos});
 export const Watch = (req, res) => {
@@ -40,6 +40,22 @@ export const postEdit = (req, res) => {
     return res.redirect(`/videos/${id}`);
 }
 export const search = (req, res) => res.send("You can search your videos");
-export const upload = (req, res) => res.send("You can upload your videos here");
+export const getUpload = (req, res) => {
+    return res.render("upload", { pageTitle: "Upload video", fakeUser });
+};
+export const postUpload = (req, res) => {
+    const {title } = req.body;
+    const newVideo = {
+     title,
+     rating: 0,
+     comments: 0,
+     createdAt: "just now",
+     views: 0,
+     id: videos.length + 1,
+    }
+    console.log(req.body);
+    videos.push(newVideo);
+    return res.redirect("/");
+}
 export const deleteVideo = (req, res) => res.send("You may delete your videos");
 
