@@ -17,6 +17,7 @@
   "homepage": "https://github.com/Briley0205/newtube-prototype1#readme",
   "dependencies": {
     "express": "^4.17.2",
+    "mongoose": "^6.2.3",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
