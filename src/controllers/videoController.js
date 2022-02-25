@@ -4,10 +4,26 @@ const fakeUser = {
     username:"Boyeon",
     loggedIn: true,
 }
-export const trending = (req, res) => {
-    video.find({}, (error, videoDocuments) => {});
-    return res.render("home", { pageTitle: "home", videos: [], fakeUser });
-}
+
+/*callback way
+video.find({}, (error, videoDocuments) => {
+    if(error) {
+        return res.render("server-error");
+    }
+    return res.render("home", { pageTitle: "home", videos: [], fakeUser })
+});
+*/
+export const trending = async(req, res) => {
+    try {
+        console.log("i started");
+        const videos = await video.find({});
+        console.log(videos);
+        console.log("i finished");
+        return res.render("home", { pageTitle: "home", videos: [], fakeUser });
+    } catch{
+        return res.render("server-error");
+    }
+};
 export const Watch = (req, res) => {
     const { id } = req.params;
     return res.render("watch", {pageTitle: `Watching`, fakeUser})
