@@ -4,6 +4,5 @@ mixin video(videoInfo)
                 a(href=`/videos/${videos.id}`)=videoInfo.title
             ul
                 li #{videoInfo.rating}/5
-                li #{videoInfo.comments} comments 
                 li Posted #{videoInfo.createdAt}
                 li #{videoInfo.views} views

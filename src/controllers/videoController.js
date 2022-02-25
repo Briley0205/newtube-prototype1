@@ -15,11 +15,9 @@ video.find({}, (error, videoDocuments) => {
 */
 export const trending = async(req, res) => {
     try {
-        console.log("i started");
         const videos = await video.find({});
         console.log(videos);
-        console.log("i finished");
-        return res.render("home", { pageTitle: "home", videos: [], fakeUser });
+        return res.render("home", { pageTitle: "home", videos, fakeUser });
     } catch{
         return res.render("server-error");
     }
@@ -41,9 +39,27 @@ export const search = (req, res) => res.send("You can search your videos");
 export const getUpload = (req, res) => {
     return res.render("upload", { pageTitle: "Upload video", fakeUser });
 };
-export const postUpload = (req, res) => {
-    const {title } = req.body;
+export const postUpload = async (req, res) => {
+    const { title, description, hashtags } = req.body;
+    await video.create({
+        title,
+        description,
+        createdAt: Date.now(),
+        hashtags: hashtags.split(",").map((word) => `#${word}`),
+        meta: {
+            views: 0,
+            rating: 0,
+        }
+    });
+    //we need to wait after saving;;;
+
+    /**another option
+     * const videos = new video({
+     * +objects
+     * });
+     * +await videos.save();
+     */
     return res.redirect("/");
-}
+};
 export const deleteVideo = (req, res) => res.send("You may delete your videos");
 
