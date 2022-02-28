@@ -22,9 +22,11 @@ export const trending = async(req, res) => {
         return res.render("server-error");
     }
 };
-export const Watch = (req, res) => {
+export const Watch = async(req, res) => {
     const { id } = req.params;
-    return res.render("watch", {pageTitle: `Watching`, fakeUser})
+    const videos = await video.findById(id);
+    console.log(videos);
+    return res.render("watch", {pageTitle: `Watching ${videos.title}`, videos, fakeUser})
 };
 export const getEdit = (req, res) => {
     const { id } = req.params;
@@ -41,16 +43,21 @@ export const getUpload = (req, res) => {
 };
 export const postUpload = async (req, res) => {
     const { title, description, hashtags } = req.body;
-    await video.create({
+    try{    
+        await video.create({
         title,
         description,
-        createdAt: Date.now(),
+        //createdAt: Date.now(),
         hashtags: hashtags.split(",").map((word) => `#${word}`),
-        meta: {
-            views: 0,
-            rating: 0,
-        }
     });
+    return res.redirect("/");
+} catch(error) {
+    console.log(error);
+    return res.render("upload", 
+    { pageTitle: "Upload video", 
+    fakeUser, 
+    errorMessage: error._message});
+}
     //we need to wait after saving;;;
 
     /**another option
@@ -59,7 +66,6 @@ export const postUpload = async (req, res) => {
      * });
      * +await videos.save();
      */
-    return res.redirect("/");
 };
 export const deleteVideo = (req, res) => res.send("You may delete your videos");
 
