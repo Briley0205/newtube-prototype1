@@ -15,7 +15,7 @@ video.find({}, (error, videoDocuments) => {
 */
 export const trending = async(req, res) => {
     try {
-        const videos = await video.find({});
+        const videos = await video.find({}).sort({createdAt: "desc"});
         return res.render("home", { pageTitle: "home", videos, fakeUser });
     } catch{
         return res.render("server-error");
@@ -53,7 +53,20 @@ export const postEdit = async(req, res) => {
     return res.redirect(`/videos/${id}`);
 }
 
-export const search = (req, res) => res.send("You can search your videos");
+export const search = async(req, res) => {
+    const { keyword } = req.query;
+    let videos = [];
+    if(keyword){
+            videos = await video.find({
+            title: {
+                $regex: new RegExp(keyword, "i")
+            },
+        });
+        return res.render("search", {pageTitle: "search", fakeUser, videos});
+    }
+    return res.render("search", {pageTitle: "search", fakeUser, videos});
+}
+
 export const getUpload = (req, res) => {
     return res.render("upload", { pageTitle: "Upload video", fakeUser });
 };
