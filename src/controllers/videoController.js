@@ -16,7 +16,6 @@ video.find({}, (error, videoDocuments) => {
 export const trending = async(req, res) => {
     try {
         const videos = await video.find({});
-        console.log(videos);
         return res.render("home", { pageTitle: "home", videos, fakeUser });
     } catch{
         return res.render("server-error");
@@ -42,14 +41,15 @@ export const getEdit = async(req, res) => {
 export const postEdit = async(req, res) => {
     const { id } = req.params;
     const { title, description, hashtags } = req.body;
-    const videos = await video.findById(id);
+    const videos = await video.exists({ _id:id });
     if(!videos) {
         return res.render("404", {pageTitle: "Video not found", fakeUser});
     }
-    videos.title = title;
-    videos.description = description;
-    videos.hashtags = hashtags.split(",").map((word) => word.startsWith('#') ? word : `#${word}`);
-    await videos.save();
+    await video.findByIdAndUpdate(id, {
+        title, 
+        description, 
+        hashtags: video.formatHashtags(hashtags),
+    });
     return res.redirect(`/videos/${id}`);
 }
 
@@ -64,10 +64,10 @@ export const postUpload = async (req, res) => {
         title,
         description,
         //createdAt: Date.now(),
-        hashtags: hashtags.split(",").map((word) => `#${word}`),
-    });
-    return res.redirect("/");
-} catch(error) {
+        hashtags: video.formatHashtags(hashtags),
+        });
+        return res.redirect("/");
+    } catch(error) {
     console.log(error);
     return res.render("upload", 
     { pageTitle: "Upload video", 
@@ -83,5 +83,10 @@ export const postUpload = async (req, res) => {
      * +await videos.save();
      */
 };
-export const deleteVideo = (req, res) => res.send("You may delete your videos");
+
+export const deleteVideo = async(req, res) => {
+    const { id } = req.params;
+    await video.findByIdAndDelete(id);
+    return res.redirect("/");
+};
 
