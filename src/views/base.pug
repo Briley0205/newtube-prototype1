@@ -5,24 +5,19 @@ html(lang="ko")
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
     body
         header 
-            if fakeUser.loggedIn
-                small Nice to meet you, #{fakeUser.username}
-                h1=pageTitle
-            nav 
-                ul 
-                    if fakeUser.loggedIn
-                        li 
-                            a(href="/users/logout") Log out
-                    else 
-                        li 
-                            a(href="/login") Login
-                    li 
-                        a(href="/") Home
-                ul
-                    li 
-                        a(href="/videos/upload") Upload Video
-                    li 
-                        a(href="/search") Search
+            small Nice to meet you
+            h1=pageTitle
+        nav 
+            ul 
+                li 
+                    a(href="/join") Join
+                li 
+                    a(href="/") Home
+            ul
+                li 
+                    a(href="/videos/upload") Upload Video
+                li 
+                    a(href="/search") Search
         main
-        block content
-    include partials/footer
+            block content
+        include partials/footer
