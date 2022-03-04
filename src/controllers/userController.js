@@ -44,8 +44,10 @@ export const postLogin = async(req, res) => {
         return res.status(400).render("login", 
         {pageTitle, 
         errorMessage: "Wrong password.",});
-    };
-//    return res.redirect("/")
+    }
+    req.session.loggedIn = true;
+    req.session.user = userExists;
+    return res.redirect("/")
 };
 
 export const edit = (req, res) => res.send("You can edit your profiles");

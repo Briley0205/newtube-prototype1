@@ -5,6 +5,7 @@ import session from "express-session";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
+import { localsMiddleware } from "./middleware";
 
 const app = express();
 const logger = morgan("dev");
@@ -20,10 +21,14 @@ app.use(session({
     saveUninitialized: true,
 }));
 
-app.get("/add-one",(req, res, next) => {
-    req.session.pro += 5;
-    return res.send(`${req.session.id}\n${req.session.pro}`);
-});
+//See all the people who casts request
+/*app.use((req, res, next) => {
+    req.sessionStore.all((error, sessions) => {
+        console.log(sessions);
+        next();
+    });
+});*/
+app.use(localsMiddleware);
 
 app.use("/", rootRouter);
 app.use("/users", userRouter);

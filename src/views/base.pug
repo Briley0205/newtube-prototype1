@@ -8,9 +8,15 @@ html(lang="ko")
             small Nice to meet you
             h1=pageTitle
         nav 
-            ul 
-                li 
-                    a(href="/join") Join
+            ul
+                if loggedIn
+                    li
+                        a(href="/logout") Log out
+                    li
+                        a(href="/my-profile") #{loggedInUser.name}'s Profile
+                else
+                    li 
+                        a(href="/join") Join
                 li 
                     a(href="/") Home
             ul
