@@ -47,7 +47,7 @@ export const postLogin = async(req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = userExists;
-    return res.redirect("/")
+    return res.redirect("/");
 };
 
 export const edit = (req, res) => res.send("You can edit your profiles");
