@@ -50,6 +50,19 @@ export const postLogin = async(req, res) => {
     return res.redirect("/");
 };
 
+export const startGithubLogin = (req, res) => {
+    const baseUrl = "http://github.com/login/oauth/authorize";
+    const config = {
+        client_id: "fdb08794f95501213bfd",
+        scope: "read:user user:email",
+    }
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    return res.redirect(finalUrl);
+    //it will take you to go "Authorization callback URL which you had set before 'https://github.com/settings/applications/1857461'"
+}
+export const finishGithubLogin = (req, res) => {}
+
 export const edit = (req, res) => res.send("You can edit your profiles");
 export const getOut = (req, res) => res.send("You can delete your account.");
 export const logout = (req, res) => res.send("You can log out");

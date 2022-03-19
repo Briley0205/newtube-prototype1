@@ -7,6 +7,9 @@ block content
         input(name="username", type="text" placeholder="User name", required)
         input(name="password", type="password" placeholder="Password", required)
         input(type="submit", value="Login")
+        br
+        <!--http://github.com/login/oauth/authorize?client_id=fdb08794f95501213bfd&scope=read:user user:email--->
+        a(href="/users/github/start") Continue with Github
     hr
     div
         span Don't have an account?
