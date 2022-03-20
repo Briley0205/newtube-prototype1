@@ -17,3 +17,17 @@
 
 /videos/comments
 /videos/comments/delete
+
+else {
+const user = await User.create({
+name: userData.name,
+username: userData.login,
+email: emailObj.email,
+password: '',
+socialOnly: true,
+location: userData.location,
+});
+req.session.loggedIn = true;
+console.log(req.session.user);
+req.session.loggedInUser = user;
+return res.redirect("/");
