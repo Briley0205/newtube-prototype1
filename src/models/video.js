@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+//.trim() removes spaces between words.
 
 const videoSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true, maxlength: 80 },
