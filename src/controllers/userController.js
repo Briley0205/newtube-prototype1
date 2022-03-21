@@ -99,6 +99,7 @@ export const finishGithubLogin = async(req, res) => {
             res.redirect("/login");
         }
         let user = await User.findOne({ email: emailObj.email });
+            console.log(userData.login);
         if(!user){
             user = await User.create({
                 avatarUrl: userData.avatar_url,
@@ -148,7 +149,6 @@ export const finishKakaoLogin = async(req, res) => {
             }
         })
     ).json();
-    console.log(tokenRequest);
     if("access_token" in tokenRequest){
         const { access_token } = tokenRequest;
         const apiUrl = "https://kapi.kakao.com";
@@ -157,7 +157,27 @@ export const finishKakaoLogin = async(req, res) => {
                 Authorization: `Bearer ${access_token}`
             }
         })).json();
-        console.log(userData)
+        const USER_KEY = userData.kakao_account;
+        if(USER_KEY.is_email_valid === false || USER_KEY.is_email_verified === false) {
+            //set notification
+            res.redirect("/login");
+        }
+        let user = await User.findOne({ email: USER_KEY.email });
+        if(!user){
+            user = await User.create({
+                avatarUrl: USER_KEY.profile.profile_image,
+                name: USER_KEY.profile.nickname,
+                username: USER_KEY.profile.nickname,
+                email: USER_KEY.email,
+                password: "",
+                socialOnly: true,
+            });
+        }
+            req.session.loggedIn = true;
+            req.session.user = user;
+            return res.redirect("/");
+    } else {
+        return res.redirect("/login");
     }
 }
 
@@ -168,4 +188,3 @@ export const logout = (req, res) => {
     return res.redirect("/");
 };
 export const see = (req, res) => res.send("You can see you here");
-
