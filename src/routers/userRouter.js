@@ -1,9 +1,9 @@
 import express from "express";
-import { edit, getOut, see, logout, startGithubLogin, finishGithubLogin, startKakaoLogin, finishKakaoLogin, startGoogleLogin, finishGoogleLogin } from "../controllers/userController";
+import { getEdit, postEdit, getOut, see, logout, startGithubLogin, finishGithubLogin, startKakaoLogin, finishKakaoLogin, startGoogleLogin, finishGoogleLogin } from "../controllers/userController";
 
 const userRouter = express.Router();
 
-userRouter.get("/edit", edit);
+userRouter.route("/edit").get(getEdit).post(postEdit);
 userRouter.get("/delete", getOut);
 userRouter.get("/logout", logout);
 userRouter.get("/github/start", startGithubLogin);

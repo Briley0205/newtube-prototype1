@@ -249,7 +249,12 @@ export const finishGoogleLogin = async(req, res) => {
     }
 }
 
-export const edit = (req, res) => res.send("You can edit your profiles");
+export const getEdit = (req, res) => {
+    return res.render("edit-profile", { pageTitle: "Edit Profile" });
+};
+export const postEdit = (req, res) => {
+    return res.render("edit-profile");
+};
 export const getOut = (req, res) => res.send("You can delete your account.");
 export const logout = (req, res) => {
     req.session.destroy();
