@@ -99,7 +99,6 @@ export const finishGithubLogin = async(req, res) => {
             res.redirect("/login");
         }
         let user = await User.findOne({ email: emailObj.email });
-            console.log(userData.login);
         if(!user){
             user = await User.create({
                 avatarUrl: userData.avatar_url,
@@ -216,9 +215,7 @@ export const finishGoogleLogin = async(req, res) => {
         })
     ).json();
     if("access_token" in tokenRequest){
-        console.log("I'm here!");
         const { access_token } = tokenRequest;
-        console.log(access_token);
         const apiUrl = "https://www.googleapis.com"
         const userData = await (await fetch(`${apiUrl}/oauth2/v1/userinfo`, {
             headers: {
@@ -231,7 +228,6 @@ export const finishGoogleLogin = async(req, res) => {
         }
         let user = await User.findOne({ email: userData.email });
         if(!user){
-            console.log("I'm reading here now...");
             user = await User.create({
                 avatarUrl: userData.picture,
                 name: userData.name,
@@ -252,8 +248,54 @@ export const finishGoogleLogin = async(req, res) => {
 export const getEdit = (req, res) => {
     return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
-export const postEdit = (req, res) => {
-    return res.render("edit-profile");
+export const postEdit = async(req, res) => {
+    const { 
+        session: { 
+            user: { _id, email: sessionEmail, username: sessionUsername, name: sessionName }, 
+        }, 
+        body: { email, name, username },
+    } = req;
+    /**
+    let changeInfoParam = [];
+    if(sessionEmail !== email) {
+        changeInfoParam.push({ email });
+        console.log(changeInfoParam);
+    }
+    if(sessionUsername !== username) {
+        changeInfoParam.push({ username });
+        console.log(changeInfoParam.username);
+    }
+    if(sessionName !== name) {
+        changeInfoParam.push({ name });
+        console.log(changeInfoParam.name);
+    }
+    if(changeInfoParam.length > 0) {
+        const existingUser = await User.findOne({ $or: changeInfoParam });
+        if(existingUser && existingUser._id.toString() === _id) {
+            return res.status(400).render("edit-profile", {
+                pageTitle: "Edit Profile",
+                errorMessage: "This name/email is already taken",
+            });
+        }
+    }
+ */
+    const updatedUser = await User.findByIdAndUpdate(_id, {
+        email, 
+        name, 
+        username,
+    },
+    { new: true }
+    );
+    req.session.user = updatedUser;
+    /** update session
+    req.session.user = {
+        ...req.session.user,
+        email, 
+        name, 
+        username,
+    }
+ */
+    return res.redirect("/users/edit");
 };
 export const getOut = (req, res) => res.send("You can delete your account.");
 export const logout = (req, res) => {
