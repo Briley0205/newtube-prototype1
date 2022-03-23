@@ -22,7 +22,7 @@ export const postJoin = async(req, res) => {
     }
     try {
     await User.create({
-        name, username, email, password, location,
+        name, username, email, password, location, avatarUrl: "",
     });
     return res.redirect("/login");
     } catch(error) {
@@ -252,13 +252,14 @@ export const getEdit = (req, res) => {
 export const postEdit = async(req, res) => {
     const {
         session: {
-            user: { _id },
+            user: { _id, avatarUrl },
         },
         body: { email, name, username },
         file,
     } = req;
-    console.log(file);
     const updatedUser = await User.findByIdAndUpdate(_id, {
+        //object: objectExist ? true :false
+        avatarUrl: file ? file.path :avatarUrl,
         email, 
         name, 
         username,

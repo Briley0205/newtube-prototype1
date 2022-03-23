@@ -3,6 +3,7 @@ extends ../base
 block content
     if errorMessage
         span=errorMessage
+    img(src="/" + loggedInUser.avatarUrl, width="100px")
     <!--Multer will not process any form which is not multipart(multipart/form-data) accept="image/*"-->
     form(method="POST", enctype="multipart/form-data")
         label(for="avatar") Avatar
