@@ -246,6 +246,12 @@ export const finishGoogleLogin = async(req, res) => {
     }
 }
 
+/**
+ *  export const startTwitterLogin = (req, res) => {
+    const baseUrl = "https://api.twitter.com"
+}
+ */
+
 export const getEdit = (req, res) => {
     return res.render("users/edit-profile", { pageTitle: "Edit Profile" });
 };
