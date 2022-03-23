@@ -1,3 +1,6 @@
+/**Import file uploader(&saver) */
+import multer from "multer";
+
 export const localsMiddleware = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);
     res.locals.loggedInUser = req.session.user || {};
@@ -19,3 +22,6 @@ export const publicOnlyMiddelware = (req, res, next) => {
         return res.redirect("/");
     }
 }
+
+export const uploadFilesMiddleware = multer({ dest:"uploads/" });
+//req.file is 'avatar' file

@@ -255,7 +255,17 @@ export const postEdit = async(req, res) => {
             user: { _id },
         },
         body: { email, name, username },
+        file,
     } = req;
+    console.log(file);
+    const updatedUser = await User.findByIdAndUpdate(_id, {
+        email, 
+        name, 
+        username,
+    },
+    { new: true }
+    );
+    req.session.user = updatedUser;
     /**
     let changeInfoParam = [];
     if(sessionEmail !== email) {
@@ -282,14 +292,6 @@ export const postEdit = async(req, res) => {
         console.log(changeInfoParam.name);
     }
  */
-    const updatedUser = await User.findByIdAndUpdate(_id, {
-        email, 
-        name, 
-        username,
-    },
-    { new: true }
-    );
-    req.session.user = updatedUser;
     /** update session
     req.session.user = {
         ...req.session.user,
