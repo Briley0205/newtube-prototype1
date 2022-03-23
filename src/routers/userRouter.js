@@ -1,12 +1,14 @@
 import express from "express";
-import { getEdit, postEdit, getOut, see, logout, startGithubLogin, finishGithubLogin, startKakaoLogin, finishKakaoLogin, startGoogleLogin, finishGoogleLogin } from "../controllers/userController";
+import { getEdit, postEdit, getOut, see, logout, startGithubLogin, finishGithubLogin, startKakaoLogin, finishKakaoLogin, startGoogleLogin, finishGoogleLogin, getChangePassword, postChangePassword } from "../controllers/userController";
 import { protectMiddleware, publicOnlyMiddelware } from "../middleware";
 
 const userRouter = express.Router();
 
 userRouter.route("/edit").all(protectMiddleware).get(getEdit).post(postEdit);
+userRouter.route("/change-password").all(protectMiddleware).get(getChangePassword).post(postChangePassword);
 userRouter.get("/delete", getOut);
 userRouter.get("/logout", protectMiddleware, logout);
+
 userRouter.get("/github/start", publicOnlyMiddelware, startGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddelware, finishGithubLogin);
 
