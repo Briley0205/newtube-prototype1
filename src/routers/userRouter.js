@@ -17,6 +17,6 @@ userRouter.get("/kakao/finish", publicOnlyMiddelware, finishKakaoLogin);
 
 userRouter.get("/google/start", publicOnlyMiddelware, startGoogleLogin);
 userRouter.get("/google/finish", publicOnlyMiddelware, finishGoogleLogin);
-userRouter.get("/:id(\\d+)", see);
+userRouter.get("/:id([0-9a-f]{24})", see);
 
 export default userRouter;
