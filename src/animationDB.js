@@ -51,18 +51,21 @@ const result = async() => {
             headers,
             variables,
             query: gqlQuery,
-        }).then((result) => console.log(result.data.data.Page.media))
+        }).then((result) => trendingAnime = result.data.data.Page.media)
+        console.log(trendingAnime[0].title)
     } catch(err) {
         return console.log(err.message);
     } 
 }
 result();
+
+export const getTrendingAnime = () => trendingAnime;
 const Anilist  = require('anilist-node');
 const anilist = new Anilist();
 
-anilist.media.anime(132405).then(data => {
-    console.log(data.trailer);
-})
+//anilist.media.anime(132405).then(data => {
+//    console.log(data.trailer);
+//})
 
 
   /**
