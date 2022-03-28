@@ -1,5 +1,6 @@
 import "dotenv/config";
 import "./db";
+import "./animationDB";
 import "./models/video";
 import "./models/User";
 import app from "./newserver";
