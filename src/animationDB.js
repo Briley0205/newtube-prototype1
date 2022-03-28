@@ -36,6 +36,12 @@ query ($page: Int, $perPage: Int) {
           bannerImage
           episodes
           genres
+          seasonYear
+          season
+          streamingEpisodes {
+              title
+              thumbnail
+          }
       }
 }
 }`;
@@ -51,6 +57,12 @@ const result = async() => {
     } 
 }
 result();
+const Anilist  = require('anilist-node');
+const anilist = new Anilist();
+
+anilist.media.anime(132405).then(data => {
+    console.log(data.trailer);
+})
 
 
   /**
@@ -60,12 +72,6 @@ result();
             streamingEpisodes
             studios
             trailer
-const Anilist  = require('anilist-node');
-const anilist = new Anilist();
-
-anilist.media.anime(132405).then(data => {
-    console.log(data.title);
-})
 let myFilter = {
     isAdult: false,
 };
