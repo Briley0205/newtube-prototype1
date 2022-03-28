@@ -57,7 +57,7 @@ const result = async() => {
         return console.log(err.message);
     } 
 }
-result();
+//result();
 
 export const getTrendingAnime = () => trendingAnime;
 const Anilist  = require('anilist-node');
