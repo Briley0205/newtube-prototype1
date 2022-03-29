@@ -1,27 +1,22 @@
 header
-    div
-        div
-            a(href="/")
-                i.fab.fa-youtube
-            span=pageTitle
-        div
-            nav 
-                ul
-                    if loggedIn
-                        li
-                            a(href="/users/logout") Log out
-                        li
-                            a(href=`/users/${loggedInUser._id}`) #{loggedInUser.name}'s Profile
-                        li
-                            a(href="/users/edit") Edit Profile
-                        li 
-                            a(href="/videos/upload") Upload Video
-                    else
-                        li 
-                            a(href="/join") Join
-                    li 
-                        a(href="/") Home
-                ul
-                    li 
-                        a(href="/search") Search
+    h1=pageTitle
+    nav 
+        ul
+            if loggedIn
+                li
+                    a(href="/users/logout") Log out
+                li
+                    a(href=`/users/${loggedInUser._id}`) #{loggedInUser.name}'s Profile
+                li
+                    a(href="/users/edit") Edit Profile
+                li 
+                    a(href="/videos/upload") Upload Video
+            else
+                li 
+                    a(href="/join") Join
+            li 
+                a(href="/") Home
+        ul
+            li 
+                a(href="/search") Search
 

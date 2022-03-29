@@ -1,6 +1,6 @@
 // Config
 @import "./config/_variables";
-@import "./config/_reset.scss";
+//@import "./config/_reset.scss";
 
 /* Components */
 @import "../scss/components/header.scss";
@@ -8,6 +8,7 @@
 /* Screens */
 
 /* Defaults */
+/*
 a {
   color: inherit;
   text-decoration: none;
@@ -25,3 +26,4 @@ body {
 main {
   background: $blue;
 }
+*/
