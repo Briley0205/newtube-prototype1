@@ -11,7 +11,7 @@ import { localsMiddleware } from "./middleware";
 const app = express();
 const logger = morgan("dev");
 app.set("view engine", "pug");
-app.set("views", process.cwd() + "/src/views");
+app.set("views", process.cwd() + "/src/views/templates");
 
 app.use(logger);
 app.use(express.urlencoded({ extended:true }));
