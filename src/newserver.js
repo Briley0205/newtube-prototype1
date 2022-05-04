@@ -16,6 +16,7 @@ app.set("views", process.cwd() + "/src/views/templates");
 
 app.use(logger);
 app.use(express.urlencoded({ extended:true }));
+app.use(express.json());
 
 app.use(session({
     secret: process.env.COOKIE_SECRET,
