@@ -25,6 +25,11 @@ export const Watch = async(req, res) => {
     };
     return res.render("watch", {pageTitle: `Watching ${videos.title}`, videos});
 };
+export const createComment = (req, res) => {
+    console.log(req.params);
+    console.log(req.body);
+    return res.end();
+}
 
 export const getEdit = async(req, res) => {
     const { id } = req.params;
