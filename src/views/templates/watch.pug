@@ -1,7 +1,7 @@
 extends ../base.pug
 
 block content
-    div#videoContainer
+    div#videoContainer(data-id=videos._id)
         video(src="/" + videos.fileUrl)
         div#videoControls
             button#play Play
@@ -17,7 +17,6 @@ block content
                 input(type="range", step="0.01", value="0", min="0", style="padding:0;")#timeline
             div
                 button#fullScreen Enter Full Screen
-
     //-
         div
             p=videos.description
@@ -28,7 +27,14 @@ block content
         if String(videos.owner._id) === String(loggedInUser._id)
             a(href=`${videos.id}/edit`) Edit videoInfo &rarr;
             a(href=`${videos.id}/delete`) Delete video &rarr;
+    if loggedIn
+        div.video__comments
+            form.video__comment-form#commentForm
+                textarea(cols="30", rows="10", placeholder="Write a comment...")
+                button Add Comment
+
 
 
 block scripts
     script(src="/static/js/videoPlayer.js")
+    script(src="/static/js/commentSection.js")
