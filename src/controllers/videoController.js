@@ -20,11 +20,12 @@ export const trending = async(req, res) => {
 };
 export const Watch = async(req, res) => {
     const { id } = req.params;
-    const videos = await Video.findById(id).populate("owner");
-    if(videos === null){
+    const video = await Video.findById(id).populate("owner").populate("comments");
+    console.log(video);
+    if(video === null){
         return res.render("404", {pageTitle: "Video not found"});
     };
-    return res.render("watch", {pageTitle: `Watching ${videos.title}`, videos});
+    return res.render("watch", {pageTitle: `Watching ${video.title}`, video});
 };
 export const createComment = async(req, res) => {
     const { 
@@ -32,6 +33,7 @@ export const createComment = async(req, res) => {
         body: { text },
         params: { id },
     } = req;
+    const currentUser = await User.findById(user._id);
     const video = await Video.findById(id);
     if (!video) {
         return res.sendStatus(404);
@@ -42,6 +44,10 @@ export const createComment = async(req, res) => {
         video: id,
         createdAt: new Date(Date.now()).toDateString(),
     });
+    video.comments.push(comment._id);
+    video.save();
+    currentUser.comments.push(comment._id);
+    currentUser.save();
     return res.sendStatus(201);
 }
 

@@ -1,8 +1,8 @@
 extends ../base.pug
 
 block content
-    div#videoContainer(data-id=videos._id)
-        video(src="/" + videos.fileUrl)
+    div#videoContainer(data-id=video._id)
+        video(src="/" + video.fileUrl)
         div#videoControls
             button#play Play
             button#mute Mute
@@ -17,9 +17,9 @@ block content
                 input(type="range", step="0.01", value="0", min="0", style="padding:0;")#timeline
             div
                 button#fullScreen Enter Full Screen
-    if String(videos.owner._id) === String(loggedInUser._id)
-            a(href=`${videos.id}/edit`) Edit videoInfo &rarr;
-            a(href=`${videos.id}/delete`) Delete video &rarr;
+    if String(video.owner._id) === String(loggedInUser._id)
+            a(href=`${video.id}/edit`) Edit videoInfo &rarr;
+            a(href=`${video.id}/delete`) Delete video &rarr;
     //-
         div
             p=videos.description
@@ -31,10 +31,14 @@ block content
             a(href=`${videos.id}/edit`) Edit videoInfo &rarr;
             a(href=`${videos.id}/delete`) Delete video &rarr;
     if loggedIn
-        div.video__comments
+        div.video__add-comments
             form.video__comment-form#commentForm
                 textarea(cols="30", rows="10", placeholder="Write a comment...")
                 button Add Comment
+    div.video__comments
+        ul
+            each comment in video.comments.reverse()
+                li.video__comment=comment.text
 
 
 
