@@ -1,4 +1,5 @@
 import Video from "../models/video";
+import Comment from "../models/Comment";
 import User from "../models/User";
 
 /*callback way
@@ -25,10 +26,23 @@ export const Watch = async(req, res) => {
     };
     return res.render("watch", {pageTitle: `Watching ${videos.title}`, videos});
 };
-export const createComment = (req, res) => {
-    console.log(req.params);
-    console.log(req.body.text);
-    return res.end();
+export const createComment = async(req, res) => {
+    const { 
+        session: { user },
+        body: { text },
+        params: { id },
+    } = req;
+    const video = await Video.findById(id);
+    if (!video) {
+        return res.sendStatus(404);
+    }
+    const comment = await Comment.create({ 
+        text,
+        owner: user._id,
+        video: id,
+        createdAt: new Date(Date.now()).toDateString(),
+    });
+    return res.sendStatus(201);
 }
 
 export const getEdit = async(req, res) => {

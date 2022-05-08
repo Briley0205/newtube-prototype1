@@ -17,6 +17,9 @@ block content
                 input(type="range", step="0.01", value="0", min="0", style="padding:0;")#timeline
             div
                 button#fullScreen Enter Full Screen
+    if String(videos.owner._id) === String(loggedInUser._id)
+            a(href=`${videos.id}/edit`) Edit videoInfo &rarr;
+            a(href=`${videos.id}/delete`) Delete video &rarr;
     //-
         div
             p=videos.description
