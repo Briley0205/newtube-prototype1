@@ -40,7 +40,8 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id)
                     span #{comment.text}
-                    span 💥
+                    if (loggedInUser._id === String(comment.owner._id))
+                        span.deleteBtn 💥
 
 
 

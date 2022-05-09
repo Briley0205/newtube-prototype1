@@ -50,6 +50,26 @@ export const createComment = async(req, res) => {
     currentUser.save();
     return res.status(201).json({ newCommentId: comment._id });
 }
+export const deleteComment = async (req, res) => {
+    const {
+      session: {
+        user
+      },
+      params: {
+        id: commentId
+      }
+    } = req;
+    const comment = await Comment.findById(commentId).populate("video").populate("owner");
+    if (!comment) {
+      return res.sendStatus(404);
+    }
+    if (String(user._id) !== String(comment.owner._id)) {
+      return res.Status(403).redirect("/");
+  
+    }
+    await Comment.findByIdAndDelete(commentId);
+    return res.status(200).redirect(`/videos/${comment.video._id}`);
+  } 
 
 export const getEdit = async(req, res) => {
     const { id } = req.params;
