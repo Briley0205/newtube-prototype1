@@ -48,7 +48,7 @@ export const createComment = async(req, res) => {
     video.save();
     currentUser.comments.push(comment._id);
     currentUser.save();
-    return res.sendStatus(201);
+    return res.status(201).json({ newCommentId: comment._id });
 }
 
 export const getEdit = async(req, res) => {

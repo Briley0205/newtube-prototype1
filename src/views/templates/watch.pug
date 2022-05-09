@@ -38,7 +38,9 @@ block content
     div.video__comments
         ul
             each comment in video.comments.reverse()
-                li.video__comment=comment.text
+                li.video__comment(data-id=comment.id)
+                    span #{comment.text}
+                    span 💥
 
 
 
