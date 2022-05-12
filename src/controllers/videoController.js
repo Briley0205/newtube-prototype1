@@ -65,7 +65,6 @@ export const deleteComment = async (req, res) => {
     }
     if (String(user._id) !== String(comment.owner._id)) {
       return res.Status(403).redirect("/");
-  
     }
     await Comment.findByIdAndDelete(commentId);
     return res.status(200).redirect(`/videos/${comment.video._id}`);
@@ -170,3 +169,13 @@ export const deleteVideo = async(req, res) => {
     return res.redirect("/");
 };
 
+export const registerView = async(req, res) => {
+    const { id } = req.params;
+    const video = await Video.findById(id);
+    if(!video) {
+        return res.status(404);
+    }
+    video.meta.views = video.meta.views + 1;
+    await video.save();
+    return res.status(200);
+}
