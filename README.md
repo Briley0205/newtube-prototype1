@@ -1,33 +1,9 @@
 # Newtube Reloaded
 
-/
-/join
-/login
-/search
+### 맨 처음 유튜브 강의 들을 때 썼던 repository 입니다.
 
-/users/:id -> See User
-/users/logout
-/users/edit -> Edit my profile
-/users/delete
+그러므로 졸업작품은 여기 없습니다.
 
-/videos/:id(id of video) -> Watch Video
-/videos/:id/edit
-/videos/:id/delete
-/videos/upload
+### 유튜브 졸업작품 repository ⬇⬇⬇
 
-/videos/comments
-/videos/comments/delete
-
-else {
-const user = await User.create({
-name: userData.name,
-username: userData.login,
-email: emailObj.email,
-password: '',
-socialOnly: true,
-location: userData.location,
-});
-req.session.loggedIn = true;
-console.log(req.session.user);
-req.session.loggedInUser = user;
-return res.redirect("/");
+<a href="https://github.com/Briley0205/bibley-prototype">비블리 (유튜브 클론)</a>
